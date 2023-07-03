@@ -22,7 +22,7 @@ services:
     container_name: node-leoAutoras
     restart: always
     ports:
-      - 3100:3000 # 3100 es el puerto de la app, 3000 es el puerto de node.
+      - 3200:3000 # 3200 es el puerto de la app, 3000 es el puerto de node.
     expose:
       - 3000 # Expongo el puerto 3000 para que se pueda acceder desde el contenedor de react
     depends_on:
