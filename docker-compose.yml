@@ -1,0 +1,50 @@
+version: "3"
+services:
+  mysql:
+    image: mysql:5.6
+    container_name: mysql-leoAutoras
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: mi-biblioteca
+      MYSQL_DATABASE: leoAutoras
+    ports:
+      - 3388:3306
+    volumes:
+      - "./docker/mysql.cnf:/etc/mysql/conf.d/mysql.cnf"
+      - "./docker/leoAutorasDb.sql:/docker-entrypoint-initdb.d/1leoAutorasDb.sql"
+      - "./docker/insertUsers.sql:/docker-entrypoint-initdb.d/2insertUsers.sql"
+      - "./docker/insertAutoras.sql:/docker-entrypoint-initdb.d/3insertAutoras.sql"
+      - "./docker/insertBooks.sql:/docker-entrypoint-initdb.d/4insertBooks.sql"
+    networks:
+      - leoAutoras
+  node:
+    build: ./backend
+    container_name: node-leoAutoras
+    restart: always
+    ports:
+      - 3100:3000 # 3100 es el puerto de la app, 3000 es el puerto de node.
+    expose:
+      - 3000 # Expongo el puerto 3000 para que se pueda acceder desde el contenedor de react
+    depends_on:
+      - mysql
+    networks:
+      - leoAutoras
+    volumes:
+      - ./backend:/usr/src/app
+      - exclude:/usr/src/app/node_modules/
+  react:
+    build: ./frontend
+    container_name: react-leoAutoras
+    restart: always
+    ports:
+      - 3000:3000 # 3000 es el puerto de react y 3000 es el puerto de node (backend)
+    depends_on:
+      - node
+    networks:
+      - leoAutoras
+    volumes:
+      - ./frontend:/usr/src/app
+volumes:
+  exclude:
+networks:
+  leoAutoras:
