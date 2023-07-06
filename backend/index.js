@@ -1,4 +1,5 @@
 import express from "express";
+import router from "./routes/router.js";
 
 const app = express(); //Creamos una app de express
 
@@ -8,6 +9,8 @@ app.use(express.urlencoded({ extended: true })); //Para que pueda leer los datos
 app.get("/", (req, res) => {
   res.send("Hello women");
 });
+
+app.use("/api", router);
 
 app.listen(3200, () => {
   console.log("Server is running in port 3200");

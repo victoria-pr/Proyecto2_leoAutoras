@@ -1,8 +1,8 @@
 import { Sequelize } from "sequelize";
 
 const sequelize = new Sequelize("leoAutoras", "root", "mi-biblioteca", {
-  host: "mysql-leoAutoras",
-  port: 3306,
+  host: "localhost",
+  port: 3388,
   dialect: "mysql",
   define: {
     timestamps: false,

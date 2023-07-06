@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `leoAutoras`.`user` (
   `username` VARCHAR(45) NOT NULL,
   `name` VARCHAR(45) NULL,
   `email` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45) NULL,
+  `password` VARCHAR(255) NULL,
   PRIMARY KEY (`iduser`),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC) ,
   UNIQUE INDEX `email_UNIQUE` (`email` ASC) )
@@ -38,6 +38,8 @@ CREATE TABLE IF NOT EXISTS `leoAutoras`.`author` (
   `surname` VARCHAR(45) NULL,
   `country` VARCHAR(45) NOT NULL,
   `birthdate` DATE NOT NULL,
+  `deathdate` DATE NULL,
+  `image` VARCHAR(255) NULL,
   `bio` VARCHAR(1500) NULL,
   PRIMARY KEY (`idauthor`))
 ENGINE = InnoDB;
